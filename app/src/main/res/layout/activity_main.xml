@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:stepUi="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cheekiat.indicatorsstep.MainActivity">
+
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <com.cheekiat.indicatorsteplib.StepProgress
+            android:id="@+id/indicators_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            stepUi:mode="indicators" />
+
+        <com.cheekiat.indicatorsteplib.StepProgress
+            android:id="@+id/step_progress"
+            android:layout_width="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            stepUi:mode="step" />
+
+        <com.cheekiat.indicatorsteplib.StepProgress
+            android:id="@+id/step_progress_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            stepUi:barHeight="30"
+            stepUi:dotDefaultSize="30dp"
+            stepUi:dotSelectedSize="30dp"
+            stepUi:itemMargins="5dp"
+            stepUi:mode="step"
+            stepUi:selectedColor="#94be37"
+            stepUi:unselectColor="#999999" />
+    </LinearLayout>
+
+</RelativeLayout>
