@@ -79,7 +79,7 @@ public class StepProgress extends LinearLayout {
                 itemMargins = a.getDimensionPixelSize(R.styleable.StepUi_itemMargins, 15);
                 dotDefaultSize = a.getDimensionPixelSize(R.styleable.StepUi_dotDefaultSize, 60);
                 storeSelectedSize = a.getDimensionPixelSize(R.styleable.StepUi_dotSelectedSize, 90);
-                textSize = a.getDimensionPixelSize(R.styleable.StepUi_textSize, 15);
+                textSize = a.getDimensionPixelSize(R.styleable.StepUi_textSize, 10);
             } finally {
                 a.recycle();
             }
@@ -127,8 +127,8 @@ public class StepProgress extends LinearLayout {
                 mView.invalidate();
             }
         } else {
-            LinearLayout v = (LinearLayout) findViewById(101);
-            View pv = (View) findViewById(102);
+            LinearLayout v = (LinearLayout) findViewById(R.id.linear_layout);
+            View pv = (View) findViewById(R.id.progress_bar);
             for (int j = 0; j < v.getChildCount(); j++) {
                 TextView mView = (TextView) v.getChildAt(j);
                 if (position + 1 > j) {
@@ -208,14 +208,14 @@ public class StepProgress extends LinearLayout {
             RelativeLayout relativeLayout = new RelativeLayout(getContext());
             LinearLayout linearLayout = new LinearLayout(getContext());
             linearLayout.setOrientation(HORIZONTAL);
-            linearLayout.setId(101);
+            linearLayout.setId(R.id.linear_layout);
             maViewParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
             linearLayout.setLayoutParams(maViewParams);
 
             final RelativeLayout.LayoutParams mViewParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, barHeight);
             View defaultBarView = new View(getContext());
             defaultBarView.setBackgroundColor(unselectColor);
-            mViewParams.addRule(RelativeLayout.ALIGN_END, 101);
+            mViewParams.addRule(RelativeLayout.ALIGN_END, R.id.linear_layout);
             mViewParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
             mViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
             defaultBarView.setLayoutParams(mViewParams);
@@ -224,7 +224,7 @@ public class StepProgress extends LinearLayout {
             final RelativeLayout.LayoutParams selectedBarViewParams = new RelativeLayout.LayoutParams(0, barHeight);
             View selectedBarView = new View(getContext());
             selectedBarView.setBackgroundColor(selectedColor);
-            selectedBarView.setId(102);
+            selectedBarView.setId(R.id.progress_bar);
             selectedBarViewParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
             selectedBarViewParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
             selectedBarViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);

@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+ext {
+    bintrayRepo = 'kiathee'
+    bintrayName = 'indicatorsteplib'
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
