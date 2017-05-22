@@ -61,7 +61,7 @@ repositories {
 }
 
 dependencies {
- compile 'com.cheekiat:slideview:1.3'
+ compile 'com.cheekiat:indicatorsteplib:1.0'
 }
 ```
 
