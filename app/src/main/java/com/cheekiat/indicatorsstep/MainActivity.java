@@ -41,11 +41,10 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
         layoutProgress1 = (StepProgress) findViewById(R.id.indicators_progress);
         layoutProgress2 = (StepProgress) findViewById(R.id.step_progress);
         layoutProgress3 = (StepProgress) findViewById(R.id.step_progress_1);
-
+        layoutProgress1.setDotCount(NUM_PAGES);
+        layoutProgress3.setDotCount(NUM_PAGES);
         for (int i = 0; i < NUM_PAGES; i++) {
-            layoutProgress1.addDot();
-            layoutProgress2.addDot("" + (i + 1));
-            layoutProgress3.addDot();
+            layoutProgress2.setDotText("" + (i + 1));
         }
 
         mPager = (ViewPager) findViewById(R.id.pager);

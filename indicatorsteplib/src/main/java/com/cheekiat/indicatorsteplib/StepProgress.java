@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -38,6 +39,9 @@ public class StepProgress extends LinearLayout {
     private Integer selectedTextColor, unselectTextColor, selectedColor, unselectColor;
     DotOnClickListener onClickListener;
     float unselectSize;
+    View v;
+    LinearLayout mDotLayout;
+    View mSelectedBar;
 
     public StepProgress(Context context) {
         super(context);
@@ -70,7 +74,7 @@ public class StepProgress extends LinearLayout {
                     0, 0);
 
             try {
-                mode = a.getInteger(R.styleable.StepUi_mode, 0);
+                mode = a.getInteger(R.styleable.StepUi_indicator_mode, 0);
                 barHeight = a.getInteger(R.styleable.StepUi_barHeight, 20);
                 selectedTextColor = a.getColor(R.styleable.StepUi_selectedTextColor, Color.WHITE);
                 unselectTextColor = a.getColor(R.styleable.StepUi_unselectTextColor, Color.BLACK);
@@ -109,10 +113,12 @@ public class StepProgress extends LinearLayout {
     }
 
     public void selected(int position) {
-
+        if (mDotLayout == null) {
+            return;
+        }
         if (mode == 0) {
-            for (int j = 0; j < getChildCount(); j++) {
-                View mView = getChildAt(j);
+            for (int j = 0; j < mDotLayout.getChildCount(); j++) {
+                View mView = mDotLayout.getChildAt(j);
                 if (position == j) {
                     mView.setBackgroundResource(R.drawable.selected);
                     mView.animate().scaleX(dotSelectedSize);
@@ -127,10 +133,9 @@ public class StepProgress extends LinearLayout {
                 mView.invalidate();
             }
         } else {
-            LinearLayout v = (LinearLayout) findViewById(R.id.linear_layout);
-            View pv = (View) findViewById(R.id.progress_bar);
-            for (int j = 0; j < v.getChildCount(); j++) {
-                TextView mView = (TextView) v.getChildAt(j);
+
+            for (int j = 0; j < mDotLayout.getChildCount(); j++) {
+                TextView mView = (TextView) mDotLayout.getChildAt(j);
                 if (position + 1 > j) {
                     mView.setBackgroundResource(R.drawable.selected);
                     mView.setTextColor(selectedTextColor);
@@ -149,11 +154,11 @@ public class StepProgress extends LinearLayout {
                 }
             }
 
-            int sum = v.getChildCount();
+            int sum = mDotLayout.getChildCount();
             sum = sum - 1;
-            int vw = v.getWidth() - dotDefaultSize - (itemMargins * 2);
+            int vw = mDotLayout.getWidth() - dotDefaultSize - (itemMargins * 2);
             if (sum > 0) {
-                animationViewSize(pv, position * (vw / sum));
+                animationViewSize(mSelectedBar, position * (vw / sum));
             }
         }
     }
@@ -166,99 +171,67 @@ public class StepProgress extends LinearLayout {
         initData(storeData);
     }
 
-    public void addDot(String data) {
+    public void setDotCount(int count) {
+        for (int i = 0; i < count; i++) {
+
+            storeData.add(null);
+        }
+        initData(storeData);
+    }
+
+    public void setDotText(String data) {
         removeAllViews();
+//        if(storeData.get(position))
         storeData.add(data);
         initData(storeData);
     }
 
     private void initData(List<String> storeData) {
 
-        if (mode == 0) {
-            LayoutParams mParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            for (int i = 0; i < storeData.size(); i++) {
-                final TextView text = new TextView(mContext);
-                if (storeData.get(i) != null) {
-                    text.setText(storeData.get(i));
-                }
-                text.setBackgroundResource(R.drawable.unselect);
-                mParams.setMargins(itemMargins, itemMargins, itemMargins, itemMargins);
-                text.setLayoutParams(mParams);
-                text.setGravity(Gravity.CENTER);
-                text.setWidth(dotDefaultSize);
-                text.setHeight(dotDefaultSize);
-                text.setTextSize(textSize);
-                final int finalI = i;
-                text.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onClickListener != null) {
-                            onClickListener.onClick(finalI);
-                        }
-                    }
-                });
-                addView(text);
+        LayoutParams mParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        v = LayoutInflater.from(getContext()).inflate(R.layout.layout, null);
+        mDotLayout = (LinearLayout) v.findViewById(R.id.dot_layout);
+        View mBar = (View) v.findViewById(R.id.bar);
+        mSelectedBar = (View) v.findViewById(R.id.selected_bar);
+        mSelectedBar.setBackgroundColor(selectedColor);
+        mBar.setBackgroundColor(unselectColor);
+        RelativeLayout.LayoutParams mViewParams = (RelativeLayout.LayoutParams) mBar.getLayoutParams();
+        mViewParams.height = barHeight;
+        mViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
+        mBar.setLayoutParams(mViewParams);
+        mBar.requestLayout();
+        RelativeLayout.LayoutParams mSelectedViewParams = (RelativeLayout.LayoutParams) mSelectedBar.getLayoutParams();
+        mSelectedViewParams.height = barHeight;
+        mSelectedViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
+        mSelectedBar.setLayoutParams(mSelectedViewParams);
+        mSelectedBar.requestLayout();
+        for (int i = 0; i < storeData.size(); i++) {
+
+            final TextView text = new TextView(mContext);
+            if (storeData.get(i) != null) {
+                text.setText(storeData.get(i));
             }
-            selected(0);
-        } else {
-            LayoutParams mParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-            RelativeLayout.LayoutParams maViewParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            RelativeLayout relativeLayout = new RelativeLayout(getContext());
-            LinearLayout linearLayout = new LinearLayout(getContext());
-            linearLayout.setOrientation(HORIZONTAL);
-            linearLayout.setId(R.id.linear_layout);
-            maViewParams.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
-            linearLayout.setLayoutParams(maViewParams);
-
-            final RelativeLayout.LayoutParams mViewParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, barHeight);
-            View defaultBarView = new View(getContext());
-            defaultBarView.setBackgroundColor(unselectColor);
-            mViewParams.addRule(RelativeLayout.ALIGN_END, R.id.linear_layout);
-            mViewParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-            mViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
-            defaultBarView.setLayoutParams(mViewParams);
-            relativeLayout.addView(defaultBarView);
-
-            final RelativeLayout.LayoutParams selectedBarViewParams = new RelativeLayout.LayoutParams(0, barHeight);
-            View selectedBarView = new View(getContext());
-            selectedBarView.setBackgroundColor(selectedColor);
-            selectedBarView.setId(R.id.progress_bar);
-            selectedBarViewParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
-            selectedBarViewParams.addRule(RelativeLayout.CENTER_VERTICAL, 1);
-            selectedBarViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
-            selectedBarView.setLayoutParams(selectedBarViewParams);
-            relativeLayout.addView(selectedBarView);
-
-            for (int i = 0; i < storeData.size(); i++) {
-                final TextView text = new TextView(mContext);
-                if (storeData.get(i) != null) {
-                    text.setText(storeData.get(i));
-                }
-                text.setBackgroundResource(R.drawable.unselect);
-                mParams.setMargins(itemMargins, itemMargins, itemMargins, itemMargins);
-                text.setLayoutParams(mParams);
-                text.setGravity(Gravity.CENTER);
-                text.setTextSize(textSize);
-                text.setWidth(dotDefaultSize);
-                text.setHeight(dotDefaultSize);
-                final int finalI = i;
-                text.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onClickListener != null) {
-                            onClickListener.onClick(finalI);
-                        }
+            text.setBackgroundResource(R.drawable.unselect);
+            mParams.setMargins(itemMargins, itemMargins, itemMargins, itemMargins);
+            text.setLayoutParams(mParams);
+            text.setGravity(Gravity.CENTER);
+            text.setTextSize(textSize);
+            text.setWidth(dotDefaultSize);
+            text.setHeight(dotDefaultSize);
+            final int finalI = i;
+            text.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(finalI);
                     }
-                });
-                linearLayout.addView(text);
-
-            }
-            relativeLayout.addView(linearLayout);
-            addView(relativeLayout);
-            selected(0);
+                }
+            });
+            mDotLayout.addView(text);
         }
+
+        addView(v);
+        selected(0);
     }
 
     void animationViewSize(final View view, int width) {

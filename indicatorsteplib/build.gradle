@@ -22,6 +22,18 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+    }
+    tasks.withType(Javadoc) {
+        options{ encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -35,7 +47,7 @@ publish {
     userOrg = 'kiathee'
     groupId = 'com.cheekiat'
     artifactId = 'indicatorsteplib'
-    publishVersion = '1.0'
+    publishVersion = '1.2'
     desc = 'Indicators and step display library '
     website = 'https://github.com/cheekiat/IndicatorsStep'
 }

@@ -3,7 +3,7 @@
     <declare-styleable name="StepUi">
         <attr name="unselect" format="color" />
         <attr name="selected" format="reference|color" />
-        <attr name="mode" format="enum">
+        <attr name="indicator_mode">
             <enum name="indicators" value="0" />
             <enum name="step" value="1" />
         </attr>

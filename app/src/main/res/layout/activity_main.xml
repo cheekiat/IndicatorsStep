@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            stepUi:mode="indicators" />
+            stepUi:indicator_mode="indicators" />
 
         <com.cheekiat.indicatorsteplib.StepProgress
             android:id="@+id/step_progress"
@@ -31,7 +31,7 @@
             android:layout_margin="16dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            stepUi:mode="step" />
+            stepUi:indicator_mode="step" />
 
         <com.cheekiat.indicatorsteplib.StepProgress
             android:id="@+id/step_progress_1"
@@ -42,7 +42,7 @@
             stepUi:dotDefaultSize="30dp"
             stepUi:dotSelectedSize="30dp"
             stepUi:itemMargins="5dp"
-            stepUi:mode="step"
+            stepUi:indicator_mode="step"
             stepUi:selectedColor="#94be37"
             stepUi:unselectColor="#999999" />
     </LinearLayout>
