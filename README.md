@@ -1,4 +1,4 @@
-# IndicatorsStep ui lib
+# Indicators Step ui lib
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [ ![Download](https://api.bintray.com/packages/kiathee/maven/indicatorsteplib/images/download.svg?version=1.0) ](https://bintray.com/kiathee/maven/indicatorsteplib/1.0/link)
 
