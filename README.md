@@ -26,7 +26,7 @@ Xml Code
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            stepUi:mode="indicators" />
+            stepUi:indicator_mode="indicators" />
 
         <com.cheekiat.indicatorsteplib.StepProgress
             android:id="@+id/step_progress"
@@ -34,7 +34,7 @@ Xml Code
             android:layout_margin="16dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            stepUi:mode="step" />
+            stepUi:indicator_mode="step" />
 ```
 
 How to use?
