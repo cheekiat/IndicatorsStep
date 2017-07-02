@@ -42,6 +42,7 @@ public class StepProgress extends LinearLayout {
     View v;
     LinearLayout mDotLayout;
     View mSelectedBar;
+    boolean hideBar;
 
     public StepProgress(Context context) {
         super(context);
@@ -84,6 +85,7 @@ public class StepProgress extends LinearLayout {
                 dotDefaultSize = a.getDimensionPixelSize(R.styleable.StepUi_dotDefaultSize, 60);
                 storeSelectedSize = a.getDimensionPixelSize(R.styleable.StepUi_dotSelectedSize, 90);
                 textSize = a.getDimensionPixelSize(R.styleable.StepUi_textSize, 10);
+                hideBar = a.getBoolean(R.styleable.StepUi_hideBar,false);
             } finally {
                 a.recycle();
             }
@@ -205,6 +207,14 @@ public class StepProgress extends LinearLayout {
         mSelectedViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
         mSelectedBar.setLayoutParams(mSelectedViewParams);
         mSelectedBar.requestLayout();
+
+        if(hideBar){
+            mSelectedBar.setVisibility(GONE);
+            mBar.setVisibility(GONE);
+        }else{
+            mSelectedBar.setVisibility(VISIBLE);
+            mBar.setVisibility(VISIBLE);
+        }
         for (int i = 0; i < storeData.size(); i++) {
 
             final TextView text = new TextView(mContext);
