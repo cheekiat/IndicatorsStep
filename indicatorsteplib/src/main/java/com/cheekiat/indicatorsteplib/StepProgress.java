@@ -173,6 +173,11 @@ public class StepProgress extends LinearLayout {
     }
 
     public void setDotCount(int count) {
+
+        if(storeData != null){
+            removeAllViews();
+            storeData.clear();
+        }
         for (int i = 0; i < count; i++) {
 
             storeData.add(null);
