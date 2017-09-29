@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
     private PagerAdapter mPagerAdapter;
 
     StepProgress layoutProgress1, layoutProgress2, layoutProgress3,layoutProgress4;
+    private StepProgress layoutProgress5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
         layoutProgress2 = (StepProgress) findViewById(R.id.step_progress);
         layoutProgress3 = (StepProgress) findViewById(R.id.step_progress_1);
         layoutProgress4 = (StepProgress) findViewById(R.id.step_progress_4);
+        layoutProgress5 = (StepProgress) findViewById(R.id.step_progress_5);
         layoutProgress1.setDotCount(NUM_PAGES);
         layoutProgress3.setDotCount(NUM_PAGES);
         layoutProgress4.setDotCount(NUM_PAGES);
+        layoutProgress5.setDotCount(NUM_PAGES);
         for (int i = 0; i < NUM_PAGES; i++) {
             layoutProgress2.setDotText("" + (i + 1));
         }
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
                 layoutProgress2.selected(position);
                 layoutProgress3.selected(position);
                 layoutProgress4.selected(position);
+                layoutProgress5.selected(position);
             }
 
             @Override

@@ -47,7 +47,7 @@ publish {
     userOrg = 'kiathee'
     groupId = 'com.cheekiat'
     artifactId = 'indicatorsteplib'
-    publishVersion = '1.2'
+    publishVersion = '1.4'
     desc = 'Indicators and step display library '
     website = 'https://github.com/cheekiat/IndicatorsStep'
 }

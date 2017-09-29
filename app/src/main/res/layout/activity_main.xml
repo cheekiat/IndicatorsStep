@@ -43,8 +43,8 @@
             stepUi:dotSelectedSize="30dp"
             stepUi:itemMargins="5dp"
             stepUi:indicator_mode="step"
-            stepUi:selectedColor="#94be37"
-            stepUi:unselectColor="#999999" />
+            stepUi:selectedBarColor="#94be37"
+            stepUi:unselectBarColor="#999999" />
 
 
         <com.cheekiat.indicatorsteplib.StepProgress
@@ -58,8 +58,23 @@
             stepUi:dotSelectedSize="30dp"
             stepUi:itemMargins="5dp"
             stepUi:indicator_mode="indicators"
-            stepUi:selectedColor="#94be37"
-            stepUi:unselectColor="#999999" />
+            stepUi:selectedBarColor="#94be37"
+            stepUi:unselectBarColor="#999999" />
+
+        <com.cheekiat.indicatorsteplib.StepProgress
+            android:id="@+id/step_progress_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            stepUi:barHeight="30"
+            stepUi:hideBar="true"
+            stepUi:dotDefaultSize="30dp"
+            stepUi:dotSelectedSize="30dp"
+            stepUi:itemMargins="5dp"
+            stepUi:indicator_mode="indicators"
+            stepUi:selected="@drawable/selected"
+            stepUi:unselect="@drawable/unselect"
+            stepUi:unselectBarColor="#999999" />
     </LinearLayout>
 
 </RelativeLayout>

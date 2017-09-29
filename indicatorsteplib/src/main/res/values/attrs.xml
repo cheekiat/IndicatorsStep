@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StepUi">
-        <attr name="unselect" format="color" />
+        <attr name="unselect" format="reference|color" />
         <attr name="selected" format="reference|color" />
         <attr name="indicator_mode">
             <enum name="indicators" value="0" />
@@ -14,8 +14,8 @@
         <attr name="dotSelectedSize" format="dimension" />
         <attr name="selectedTextColor" format="color" />
         <attr name="unselectTextColor" format="color" />
-        <attr name="selectedColor" format="color" />
-        <attr name="unselectColor" format="color" />
+        <attr name="selectedBarColor" format="color" />
+        <attr name="unselectBarColor" format="color" />
         <attr name="textSize" format="dimension" />
     </declare-styleable>
 </resources>

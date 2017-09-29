@@ -35,13 +35,16 @@ public class StepProgress extends LinearLayout {
     int mode;
     int barHeight;
     int textSize;
-    private Integer selectedTextColor, unselectTextColor, selectedColor, unselectColor;
+    private Integer selectedTextColor, unselectTextColor;//, selectedColor, unselectColor;
+    private Drawable mSelected, mUnselect;
     DotOnClickListener onClickListener;
     float unselectSize;
     View v;
     LinearLayout mDotLayout;
     View mSelectedBar;
     boolean hideBar;
+    private int unselectBarColor;
+    private int selectedBarColor;
 
     public StepProgress(Context context) {
         super(context);
@@ -78,13 +81,15 @@ public class StepProgress extends LinearLayout {
                 barHeight = a.getInteger(R.styleable.StepUi_barHeight, 20);
                 selectedTextColor = a.getColor(R.styleable.StepUi_selectedTextColor, Color.WHITE);
                 unselectTextColor = a.getColor(R.styleable.StepUi_unselectTextColor, Color.BLACK);
-                selectedColor = a.getColor(R.styleable.StepUi_selectedColor, Color.parseColor("#F3AD33"));
-                unselectColor = a.getColor(R.styleable.StepUi_unselectColor, Color.parseColor("#D6D6D6"));
+                mSelected = a.getDrawable(R.styleable.StepUi_selected);
+                mUnselect = a.getDrawable(R.styleable.StepUi_unselect);
+                selectedBarColor = a.getColor(R.styleable.StepUi_selectedBarColor, Color.parseColor("#F3AD33"));
+                unselectBarColor = a.getColor(R.styleable.StepUi_unselectBarColor, Color.parseColor("#D6D6D6"));
                 itemMargins = a.getDimensionPixelSize(R.styleable.StepUi_itemMargins, 15);
                 dotDefaultSize = a.getDimensionPixelSize(R.styleable.StepUi_dotDefaultSize, 60);
                 storeSelectedSize = a.getDimensionPixelSize(R.styleable.StepUi_dotSelectedSize, 90);
                 textSize = a.getDimensionPixelSize(R.styleable.StepUi_textSize, 10);
-                hideBar = a.getBoolean(R.styleable.StepUi_hideBar,false);
+                hideBar = a.getBoolean(R.styleable.StepUi_hideBar, false);
             } finally {
                 a.recycle();
             }
@@ -124,12 +129,21 @@ public class StepProgress extends LinearLayout {
                     mView.setBackgroundResource(R.drawable.selected);
                     mView.animate().scaleX(dotSelectedSize);
                     mView.animate().scaleY(dotSelectedSize);
-                    changeColor(mView.getBackground(), selectedColor);
+                    if (mSelected != null) {
+                        mView.setBackground(mSelected);
+                    } else {
+                        changeColor(mView.getBackground(),selectedBarColor);
+                    }
                 } else {
                     mView.setBackgroundResource(R.drawable.unselect);
                     mView.animate().scaleX(unselectSize);
                     mView.animate().scaleY(unselectSize);
-                    changeColor(mView.getBackground(), unselectColor);
+                    if (mUnselect != null) {
+                        mView.setBackground(mUnselect);
+                    } else {
+                        changeColor(mView.getBackground(), unselectBarColor);
+                    }
+
                 }
                 mView.invalidate();
             }
@@ -140,11 +154,19 @@ public class StepProgress extends LinearLayout {
                 if (position + 1 > j) {
                     mView.setBackgroundResource(R.drawable.selected);
                     mView.setTextColor(selectedTextColor);
-                    changeColor(mView.getBackground(), selectedColor);
+                    if (mSelected != null) {
+                        mView.setBackground(mSelected);
+                    } else {
+                        changeColor(mView.getBackground(), selectedBarColor);
+                    }
                 } else {
                     mView.setBackgroundResource(R.drawable.unselect);
                     mView.setTextColor(unselectTextColor);
-                    changeColor(mView.getBackground(), unselectColor);
+                    if (mUnselect != null) {
+                        mView.setBackground(mUnselect);
+                    } else {
+                        changeColor(mView.getBackground(), unselectBarColor);
+                    }
                 }
                 if (position == j) {
                     mView.animate().scaleX(dotSelectedSize);
@@ -174,7 +196,7 @@ public class StepProgress extends LinearLayout {
 
     public void setDotCount(int count) {
 
-        if(storeData != null){
+        if (storeData != null) {
             removeAllViews();
             storeData.clear();
         }
@@ -199,8 +221,8 @@ public class StepProgress extends LinearLayout {
         mDotLayout = (LinearLayout) v.findViewById(R.id.dot_layout);
         View mBar = (View) v.findViewById(R.id.bar);
         mSelectedBar = (View) v.findViewById(R.id.selected_bar);
-        mSelectedBar.setBackgroundColor(selectedColor);
-        mBar.setBackgroundColor(unselectColor);
+        mSelectedBar.setBackgroundColor(selectedBarColor);
+        mBar.setBackgroundColor(unselectBarColor);
         RelativeLayout.LayoutParams mViewParams = (RelativeLayout.LayoutParams) mBar.getLayoutParams();
         mViewParams.height = barHeight;
         mViewParams.setMargins(itemMargins + (dotDefaultSize / 2), 0, itemMargins + (dotDefaultSize / 2), 0);
@@ -212,10 +234,10 @@ public class StepProgress extends LinearLayout {
         mSelectedBar.setLayoutParams(mSelectedViewParams);
         mSelectedBar.requestLayout();
 
-        if(hideBar){
+        if (hideBar) {
             mSelectedBar.setVisibility(GONE);
             mBar.setVisibility(GONE);
-        }else{
+        } else {
             mSelectedBar.setVisibility(VISIBLE);
             mBar.setVisibility(VISIBLE);
         }
