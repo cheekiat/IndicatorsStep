@@ -13,9 +13,7 @@ Java Code
 ```
         StepProgress mStepProgress = (StepProgress) findViewById(R.id.step_progress);
         
-        for (int i = 0; i < 5; i++) {
-            mStepProgress.addDot();
-        }
+        mStepProgress.setDotCount(5);
 ```
         
 Xml Code
@@ -65,7 +63,7 @@ repositories {
 }
 
 dependencies {
- compile 'com.cheekiat:indicatorsteplib:1.0'
+ compile 'com.cheekiat:indicatorsteplib:1.4'
 }
 ```
 
