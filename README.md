@@ -42,6 +42,7 @@ How to use?
 | ------------- | ------------- |
 | selected(int position) | Set select dot. |
 | setDotsOnClickListener(DotOnClickListener onClickListener) | Add click dot listener. |
+| setupWithViewPager(ViewPager mViewPager) | Auto change selected dot by view page position |
 
 ### Xml
 | XML attributes | Description |
@@ -63,7 +64,7 @@ repositories {
 }
 
 dependencies {
- compile 'com.cheekiat:indicatorsteplib:1.4'
+ compile 'com.cheekiat:indicatorsteplib:1.6'
 }
 ```
 
