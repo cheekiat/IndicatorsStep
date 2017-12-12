@@ -56,26 +56,31 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
-        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                layoutProgress1.selected(position);
-                layoutProgress2.selected(position);
-                layoutProgress3.selected(position);
-                layoutProgress4.selected(position);
-                layoutProgress5.selected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        layoutProgress1.setupWithViewPager(mPager);
+        layoutProgress2.setupWithViewPager(mPager);
+        layoutProgress3.setupWithViewPager(mPager);
+        layoutProgress4.setupWithViewPager(mPager);
+        layoutProgress5.setupWithViewPager(mPager);
+//        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                layoutProgress1.selected(position);
+//                layoutProgress2.selected(position);
+//                layoutProgress3.selected(position);
+//                layoutProgress4.selected(position);
+//                layoutProgress5.selected(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
         layoutProgress3.setDotsOnClickListener(new DotOnClickListener() {
             @Override

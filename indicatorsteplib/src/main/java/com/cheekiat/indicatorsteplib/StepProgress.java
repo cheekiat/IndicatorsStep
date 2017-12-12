@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -132,7 +133,7 @@ public class StepProgress extends LinearLayout {
                     if (mSelected != null) {
                         mView.setBackground(mSelected);
                     } else {
-                        changeColor(mView.getBackground(),selectedBarColor);
+                        changeColor(mView.getBackground(), selectedBarColor);
                     }
                 } else {
                     mView.setBackgroundResource(R.drawable.unselect);
@@ -295,6 +296,27 @@ public class StepProgress extends LinearLayout {
             ((ColorDrawable) background.mutate()).setColor(color);
         } else {
 //            Log.w(TAG,"Not a valid background type");
+        }
+    }
+
+    public void setupWithViewPager(ViewPager mViewPager) {
+        if (mViewPager != null) {
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    selected(position);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
         }
     }
 }
