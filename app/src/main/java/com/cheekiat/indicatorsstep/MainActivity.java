@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
      */
     private PagerAdapter mPagerAdapter;
 
-    StepProgress layoutProgress1, layoutProgress2, layoutProgress3,layoutProgress4;
+    StepProgress layoutProgress1, layoutProgress2, layoutProgress3, layoutProgress4;
     private StepProgress layoutProgress5;
 
     @Override
@@ -44,13 +44,6 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
         layoutProgress3 = (StepProgress) findViewById(R.id.step_progress_1);
         layoutProgress4 = (StepProgress) findViewById(R.id.step_progress_4);
         layoutProgress5 = (StepProgress) findViewById(R.id.step_progress_5);
-        layoutProgress1.setDotCount(NUM_PAGES);
-        layoutProgress3.setDotCount(NUM_PAGES);
-        layoutProgress4.setDotCount(NUM_PAGES);
-        layoutProgress5.setDotCount(NUM_PAGES);
-        for (int i = 0; i < NUM_PAGES; i++) {
-            layoutProgress2.setDotText("" + (i + 1));
-        }
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -61,26 +54,10 @@ public class MainActivity extends AppCompatActivity implements TestFragment.OnFr
         layoutProgress3.setupWithViewPager(mPager);
         layoutProgress4.setupWithViewPager(mPager);
         layoutProgress5.setupWithViewPager(mPager);
-//        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                layoutProgress1.selected(position);
-//                layoutProgress2.selected(position);
-//                layoutProgress3.selected(position);
-//                layoutProgress4.selected(position);
-//                layoutProgress5.selected(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
+
+        for (int i = 0; i < layoutProgress3.getDotTextViews().size(); i++) {
+            layoutProgress3.getDotTextViews().get(i).setText("" + (i + 1));
+        }
 
         layoutProgress3.setDotsOnClickListener(new DotOnClickListener() {
             @Override

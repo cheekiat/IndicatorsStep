@@ -22,30 +22,33 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.cheekiat.indicatorsteplib.Mode.INDICATORS;
+import static com.cheekiat.indicatorsteplib.Mode.STEP;
+
 /**
  * Created by Chee Kiat on 15/05/2017.
  */
 
 public class StepProgress extends LinearLayout {
 
-    Context mContext;
-    List<String> storeData = new ArrayList<>();
-    int dotDefaultSize;
-    float dotSelectedSize;
-    int itemMargins;
-    int mode;
-    int barHeight;
-    int textSize;
+    private Context mContext;
+    private List<String> storeData = new ArrayList<>();
+    private int dotDefaultSize;
+    private float dotSelectedSize;
+    private int itemMargins;
+    private int mode;
+    private int barHeight;
+    private int textSize;
     private Integer selectedTextColor, unselectTextColor;//, selectedColor, unselectColor;
     private Drawable mSelected, mUnselect;
-    DotOnClickListener onClickListener;
-    float unselectSize;
-    View v;
-    LinearLayout mDotLayout;
-    View mSelectedBar;
-    boolean hideBar;
+    private DotOnClickListener onClickListener;
+    private float unselectSize;
+    private View v;
+    private LinearLayout mDotLayout;
+    private View mSelectedBar;
     private int unselectBarColor;
     private int selectedBarColor;
+    private List<TextView> mDotTexts = new ArrayList<>();
 
     public StepProgress(Context context) {
         super(context);
@@ -90,13 +93,12 @@ public class StepProgress extends LinearLayout {
                 dotDefaultSize = a.getDimensionPixelSize(R.styleable.StepUi_dotDefaultSize, 60);
                 storeSelectedSize = a.getDimensionPixelSize(R.styleable.StepUi_dotSelectedSize, 90);
                 textSize = a.getDimensionPixelSize(R.styleable.StepUi_textSize, 10);
-                hideBar = a.getBoolean(R.styleable.StepUi_hideBar, false);
             } finally {
                 a.recycle();
             }
         }
 
-        if (mode == 1) {
+        if (mode == Mode.STEP_WITH_BAR.getValue()) {
 
             if (barHeight > dotDefaultSize) {
                 barHeight = dotDefaultSize;
@@ -123,7 +125,7 @@ public class StepProgress extends LinearLayout {
         if (mDotLayout == null) {
             return;
         }
-        if (mode == 0) {
+        if (mode == Mode.INDICATORS.getValue()) {
             for (int j = 0; j < mDotLayout.getChildCount(); j++) {
                 View mView = mDotLayout.getChildAt(j);
                 if (position == j) {
@@ -187,12 +189,17 @@ public class StepProgress extends LinearLayout {
         }
     }
 
+    public List<TextView> getDotTextViews() {
+        if (mDotLayout == null) {
+            return new ArrayList<>();
+        }
+        mDotTexts.clear();
+        for (int j = 0; j < mDotLayout.getChildCount(); j++) {
+            TextView mView = (TextView) mDotLayout.getChildAt(j);
+            mDotTexts.add(mView);
+        }
 
-    public void addDot() {
-        removeAllViews();
-
-        storeData.add(null);
-        initData(storeData);
+        return mDotTexts;
     }
 
     public void setDotCount(int count) {
@@ -205,13 +212,6 @@ public class StepProgress extends LinearLayout {
 
             storeData.add(null);
         }
-        initData(storeData);
-    }
-
-    public void setDotText(String data) {
-        removeAllViews();
-//        if(storeData.get(position))
-        storeData.add(data);
         initData(storeData);
     }
 
@@ -235,13 +235,15 @@ public class StepProgress extends LinearLayout {
         mSelectedBar.setLayoutParams(mSelectedViewParams);
         mSelectedBar.requestLayout();
 
-        if (hideBar) {
-            mSelectedBar.setVisibility(GONE);
-            mBar.setVisibility(GONE);
-        } else {
+        if (mode == Mode.STEP_WITH_BAR.getValue()) {
             mSelectedBar.setVisibility(VISIBLE);
             mBar.setVisibility(VISIBLE);
+        } else {
+            mSelectedBar.setVisibility(GONE);
+            mBar.setVisibility(GONE);
         }
+
+
         for (int i = 0; i < storeData.size(); i++) {
 
             final TextView text = new TextView(mContext);
@@ -301,6 +303,10 @@ public class StepProgress extends LinearLayout {
 
     public void setupWithViewPager(ViewPager mViewPager) {
         if (mViewPager != null) {
+            if (mViewPager.getAdapter() != null) {
+                setDotCount(mViewPager.getAdapter().getCount());
+            }
+
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

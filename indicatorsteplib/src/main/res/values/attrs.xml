@@ -6,8 +6,8 @@
         <attr name="indicator_mode">
             <enum name="indicators" value="0" />
             <enum name="step" value="1" />
+            <enum name="stepWithBar" value="2" />
         </attr>
-        <attr name="hideBar" format="boolean" />
         <attr name="barHeight" format="integer" />
         <attr name="itemMargins" format="dimension" />
         <attr name="dotDefaultSize" format="dimension" />
