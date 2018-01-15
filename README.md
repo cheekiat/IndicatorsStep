@@ -64,7 +64,7 @@ repositories {
 }
 
 dependencies {
- compile 'com.cheekiat:indicatorsteplib:1.7'
+ compile 'com.cheekiat:indicatorsteplib:1.8'
 }
 ```
 
