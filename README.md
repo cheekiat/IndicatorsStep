@@ -51,8 +51,8 @@ How to use?
 | app:dotSelectedSize | Set selected dot size. |
 | app:itemMargins | Set slide layout text color. |
 | app:mode | Set display mode indicators, step. |
-| app:selectedColor | Set selected dot color. |
-| app:unselectColor | Set unselect dot color. |
+| app:selectedDotColor | Set selected dot color. |
+| app:unselectDotColor | Set unselect dot color. |
 | app:barHeight | Set step bar height. |
 | app:unselectTextColor | Set step text size. |
 
@@ -64,7 +64,7 @@ repositories {
 }
 
 dependencies {
- compile 'com.cheekiat:indicatorsteplib:1.8'
+ compile 'com.cheekiat:indicatorsteplib:1.9'
 }
 ```
 
