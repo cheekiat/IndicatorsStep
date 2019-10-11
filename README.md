@@ -49,7 +49,7 @@ How to use?
 | ------------- | ------------- |
 | app:dotDefaultSize | Set default dot size. |
 | app:dotSelectedSize | Set selected dot size. |
-| app:itemMargins | Set slide layout text color. |
+| app:itemMargins | Set margins between dot. |
 | app:mode | Set display mode indicators, step. |
 | app:selectedDotColor | Set selected dot color. |
 | app:unselectDotColor | Set unselect dot color. |
