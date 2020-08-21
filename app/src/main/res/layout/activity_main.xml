@@ -56,23 +56,32 @@
             stepUi:dotDefaultSize="30dp"
             stepUi:dotSelectedSize="30dp"
             stepUi:itemMargins="5dp"
-            stepUi:indicator_mode="step"
-            stepUi:selectedBarColor="#94be37"
-            stepUi:unselectBarColor="#999999" />
+            stepUi:indicator_mode="indicators"
+            stepUi:selectedDotColor="#ff0000"
+            stepUi:unselectDotColor="#999999" />
 
+        <!-- if you use dotDefaultWidthSize can't set dotDefaultSize-->
         <com.cheekiat.indicatorsteplib.StepProgress
             android:id="@+id/step_progress_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            stepUi:barHeight="30"
-            stepUi:dotDefaultSize="30dp"
-            stepUi:dotSelectedSize="30dp"
+            stepUi:dotDefaultWidthSize="30dp"
+            stepUi:dotDefaultHeightSize="10dp"
             stepUi:itemMargins="5dp"
+            stepUi:selected="@drawable/bg_curve_50dp_color_eastern_blue_2"
+            stepUi:unselect="@drawable/bg_curve_50dp_color_white_2" />
+
+        <com.cheekiat.indicatorsteplib.StepProgress
+            android:id="@+id/step_progress_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            stepUi:dotDefaultSize="10dp"
+            stepUi:dotSelectedSize="10dp"
             stepUi:indicator_mode="indicators"
-            stepUi:selected="@drawable/selected"
-            stepUi:unselect="@drawable/unselect"
-            stepUi:unselectBarColor="#999999" />
+            stepUi:selectedDotColor="#ff0000"
+            stepUi:unselectDotColor="#ff00ff" />
     </LinearLayout>
 
 </RelativeLayout>
